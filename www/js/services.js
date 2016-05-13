@@ -78,8 +78,7 @@ angular.module('starter.services', [])
 .factory('Points', function($q, DBA) {
   var self = this;
   
-  self.all = function () {
-      DBA.setName(config.points_db_name);
+  self.all = function () {     
       return $q.when(DBA.getItems("select fid,id,name,lat,lon from points"));
     }
     return self;
