@@ -1,0 +1,39 @@
+<ion-view view-title="Points">
+  <ion-content class="padding">
+    <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="point in points" type="item-text-wrap">
+                <div class="list card">
+                    <div class="item item-divider">{{point.name}}</div>
+                    <div class="item item-body">
+                        <table class="table">
+                          <tr>
+                            <td>
+                              Fid
+                            </td>
+                            <td>
+                              {{point.fid}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Latitude
+                            </td>
+                            <td>
+                              {{point.lat}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Longitude
+                            </td>
+                            <td>
+                              {{point.lon}}
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+  </ion-content>
+</ion-view>
