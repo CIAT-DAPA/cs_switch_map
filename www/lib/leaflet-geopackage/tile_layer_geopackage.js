@@ -8,9 +8,11 @@ L.TileLayer.GeoPackage = L.TileLayer.extend({
 
 	getTileUrl: function(tilePoint, tile) {
         model.getTiles(tilePoint.x,tilePoint.y,tilePoint.z).then(function (items) {
+            console.log(items);
+            /*
             if(tiles != null  && tiles.size() > 0)
                 tile.src = 'data:image/png;base64,' + items[0].tile_data;
-            else
+            else*/
                 tile.src = null;
 			    	
 		});
