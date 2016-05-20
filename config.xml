@@ -40,6 +40,5 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
-    <plugin name="cordova-sqlite-storage" spec="https://github.com/brodysoft/Cordova-SQLitePlugin.git" />
-    <plugin name="cordova-plugin-dbcopy" spec="https://github.com/an-rahulpandey/cordova-plugin-dbcopy.git" />
+    <plugin name="cordova-sqlite-ext" spec="https://github.com/litehelpers/cordova-sqlite-ext" />
 </widget>

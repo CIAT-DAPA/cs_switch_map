@@ -1,5 +1,6 @@
 angular.module('starter.services', [])
-/*.factory('DBA', function ($cordovaSQLite, $q) {
+
+.factory('DBA', function ($cordovaSQLite, $q) {
     var self = this;
     var _name;
     var _db;
@@ -10,11 +11,10 @@ angular.module('starter.services', [])
 
     self.db = function () {
       if (window.sqlitePlugin !== undefined) {
-        //www/demo.db is a file created with SqliteBrowser tool :)
-        _db = window.sqlitePlugin.openDatabase({ name: _name, location: 2, createFromLocation: -1 });
+        _db = window.sqlitePlugin.openDatabase({ name: _name,  location: 'default', androidDatabaseImplementation: 2, createFromLocation: 1 });
+        //_db = window.sqlitePlugin.openDatabase({ name: _name,  location: 2,  createFromLocation: -1 });
       } else {
-        // For debugging in the browser
-        _db = window.openDatabase(_name, "1.0", "Points", 200000);
+        _db = window.openDatabase(_name, "1.0", _name, 200000);
       }
       return _db;
     };
@@ -41,45 +41,25 @@ angular.module('starter.services', [])
 
     return self;
   })
-
-  .factory('Points', function ($q, DBA, config) {
+ 
+.factory('Points', function ($q, DBA, config) {
     var self = this;
     self.all = function () {
       DBA.setName(config.points_db_name);
       return $q.when(DBA.getItems("select fid,id,name,lat,lon from points"));
     }
     return self;
-  })*/
-.factory('DBA', function ($cordovaSQLite, $q) {
-  var self = this;
-  
-  self.executeSql = function (query, parameters) {
-      return $cordovaSQLite.execute(db, query, parameters);
-    };    
-
-    self.getItems = function (query, parameters) {
-      var deferred = $q.defer();
-      self.executeSql(query, parameters).then(function (res) {
-        var items = [];
-        for (var i = 0; i < res.rows.length; i++) {
-          items.push(res.rows.item(i));
-        }
-        return deferred.resolve(items);
-      }, function (err) {
-        console.error(err);
-        return deferred.reject(err);
-      });
-
-      return deferred.promise;
-    };  
-    
-    return self;
 })
-.factory('Points', function($q, DBA) {
-  var self = this;
-  
-  self.all = function () {     
-      return $q.when(DBA.getItems("select fid,id,name,lat,lon from points"));
+
+.factory('Tiles', function ($q, DBA, config) {
+    var self = this;
+    self.getTiles = function (x, y, z) {
+      //var query = 'SELECT tile_data FROM images i inner join map m on i.tile_id=m.tile_id  where zoom_level = ' + z + ' AND tile_column = ' + x + ' AND tile_row = ' + y;
+      //var query='SELECT tile_data FROM tiles WHERE zoom_level = ' + z +' AND tile_column = ' + x + ' AND tile_row = ' + y;
+      var query='SELECT tile_data FROM tiles ';
+      //var query='SELECT table_name FROM gpkg_tile_matrix ';
+      DBA.setName(config.map_db_name);
+      return $q.when(DBA.getItems(query));
     }
     return self;
 });
