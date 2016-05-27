@@ -29,14 +29,12 @@ angular.module('starter.services', [])
         var items = [];
         for (var i = 0; i < res.rows.length; i++) {
           items.push(res.rows.item(i));
-          console.log(items[i]);
         }
         return deferred.resolve(items);
       }, function (err) {
         console.error(err);
         return deferred.reject(err);
       });
-
       return deferred.promise;
     };
 
@@ -54,11 +52,8 @@ angular.module('starter.services', [])
 
 .factory('Tiles', function ($q, DBA, config) {
     var self = this;
-    self.getTiles = function (x, y, z) {
-      //var query = 'SELECT tile_data FROM images i inner join map m on i.tile_id=m.tile_id  where zoom_level = ' + z + ' AND tile_column = ' + x + ' AND tile_row = ' + y;
-      //var query='SELECT tile_data FROM tiles WHERE zoom_level = ' + z +' AND tile_column = ' + x + ' AND tile_row = ' + y;
-      var query='SELECT tile_data FROM tiles ';
-      //var query='SELECT * FROM sqlite_master';
+    self.getTiles = function (x, y, z) {      
+      var query='SELECT tile_data FROM tiles WHERE zoom_level = ' + z +' AND tile_column = ' + x + ' AND tile_row = ' + y;
       DBA.setName(config.map_db_name);
       return $q.when(DBA.getItems(query));
     }
